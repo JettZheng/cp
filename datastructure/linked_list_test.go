@@ -5,6 +5,14 @@ import (
 	"testing"
 )
 
+var (
+	testNodeA  = &ListNode{1, &ListNode{2, &ListNode{3, &ListNode{4, &ListNode{5, nil}}}}}
+	testNodeA1 = &ListNode{1, &ListNode{2, &ListNode{3, &ListNode{5, nil}}}}
+	testNodeB  = &ListNode{2, &ListNode{3, &ListNode{4, &ListNode{5, nil}}}}
+	testNodeC  = &ListNode{2, &ListNode{3, &ListNode{4, &ListNode{5, nil}}}}
+	testNodeD  = &ListNode{2, nil}
+)
+
 func Test_reverseListIteratively(t *testing.T) {
 	type args struct {
 		head *ListNode
@@ -70,10 +78,10 @@ func Test_reverseKGroup(t *testing.T) {
 		{
 			name: "",
 			args: args{
-				head: &ListNode{1, &ListNode{2, &ListNode{3, &ListNode{4,&ListNode{5,nil}}}}},
+				head: &ListNode{1, &ListNode{2, &ListNode{3, &ListNode{4, &ListNode{5, nil}}}}},
 				k:    2,
 			},
-			want: &ListNode{2, &ListNode{1, &ListNode{4, &ListNode{3,&ListNode{5,nil}}}}},
+			want: &ListNode{2, &ListNode{1, &ListNode{4, &ListNode{3, &ListNode{5, nil}}}}},
 		},
 		{
 			name: "",
@@ -81,21 +89,133 @@ func Test_reverseKGroup(t *testing.T) {
 				head: &ListNode{1, &ListNode{2, nil}},
 				k:    2,
 			},
-			want:  &ListNode{2, &ListNode{1, nil}},
+			want: &ListNode{2, &ListNode{1, nil}},
 		},
 		{
 			name: "",
 			args: args{
-				head: &ListNode{1, &ListNode{2, &ListNode{3,&ListNode{4,nil}}}},
+				head: &ListNode{1, &ListNode{2, &ListNode{3, &ListNode{4, nil}}}},
 				k:    2,
 			},
-			want:  &ListNode{2, &ListNode{1, &ListNode{4,&ListNode{3,nil}}}},
+			want: &ListNode{2, &ListNode{1, &ListNode{4, &ListNode{3, nil}}}},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := reverseKGroup(tt.args.head, tt.args.k); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("reverseKGroup() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_getIntersectionNode(t *testing.T) {
+	type args struct {
+		headA *ListNode
+		headB *ListNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want *ListNode
+	}{
+		{
+			name: "",
+			args: args{
+				headA: testNodeA,
+				headB: testNodeB,
+			},
+			want: testNodeC,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getIntersectionNode(tt.args.headA, tt.args.headB); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("getIntersectionNode() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_removeNthFromEnd(t *testing.T) {
+	type args struct {
+		head *ListNode
+		n    int
+	}
+	tests := []struct {
+		name string
+		args args
+		want *ListNode
+	}{
+		{
+			name: "",
+			args: args{
+				head: testNodeA,
+				n:    2,
+			},
+			want: testNodeA1,
+		},
+		{
+			name: "",
+			args: args{
+				head: testNodeD,
+				n:    1,
+			},
+			want: nil,
+		},
+		{
+			name: "",
+			args: args{
+				head: &ListNode{1, &ListNode{2, nil}},
+				n:    1,
+			},
+			want: &ListNode{1, nil},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := removeNthFromEnd(tt.args.head, tt.args.n); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("removeNthFromEnd() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_deleteDuplicatesIteratively(t *testing.T) {
+	type args struct {
+		head *ListNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want *ListNode
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := deleteDuplicatesIteratively(tt.args.head); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("deleteDuplicatesIteratively() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_deleteDuplicatesRecursively(t *testing.T) {
+	type args struct {
+		head *ListNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want *ListNode
+	}{
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := deleteDuplicatesRecursively(tt.args.head); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("deleteDuplicatesRecursively() = %v, want %v", got, tt.want)
 			}
 		})
 	}
