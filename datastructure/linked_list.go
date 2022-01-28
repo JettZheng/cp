@@ -105,7 +105,7 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 }
 
 // 21 https://leetcode.com/problems/merge-two-sorted-lists/
-func mergeTwoSortedListsRecursively(l1, l2 *ListNode) *ListNode {
+func mergeTwoSortedListsRecursively(l1, l2 *ListNode) *ListNode { //nolint
 	if l1 == nil {
 		return l2
 	}
@@ -124,7 +124,7 @@ func mergeTwoSortedListsRecursively(l1, l2 *ListNode) *ListNode {
 	return l2
 }
 
-func mergeTwoSortedListsIteratively(l1, l2 *ListNode) *ListNode {
+func mergeTwoSortedListsIteratively(l1, l2 *ListNode) *ListNode { //nolint
 	if l1 == nil {
 		return l2
 	}
@@ -132,15 +132,27 @@ func mergeTwoSortedListsIteratively(l1, l2 *ListNode) *ListNode {
 		return l1
 	}
 
-	if l1.Val < l2.Val {
-		r := mergeTwoSortedListsRecursively(l1.Next, l2)
-		l1.Next = r
-		return l1
+	var res = &ListNode{}
+	var cres = res
+	for l1 != nil && l2 != nil {
+		if l1.Val < l2.Val {
+			cres.Next = l1
+			l1 = l1.Next
+		} else {
+			cres.Next = l2
+			l2 = l2.Next
+		}
+		cres = cres.Next
 	}
 
-	r := mergeTwoSortedListsRecursively(l1, l2.Next)
-	l2.Next = r
-	return l2
+	if l1 == nil {
+		cres.Next = l2
+	}
+	if l2 == nil {
+		cres.Next = l1
+	}
+
+	return res.Next
 }
 
 // 23 https://leetcode.com/problems/merge-k-sorted-lists/
@@ -225,3 +237,83 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 
 	return head
 }
+
+// 24 https://leetcode.com/problems/swap-nodes-in-pairs/
+func swapPairs2(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+
+	var curr = head
+	var res *ListNode = curr.Next
+	var next *ListNode
+	for curr != nil && curr.Next != nil {
+		next = curr.Next.Next
+
+		curr.Next.Next = curr
+		if next == nil {
+			curr.Next = nil
+		} else {
+			if next.Next == nil {
+				curr.Next = next
+			} else {
+				curr.Next = next.Next
+			}
+		}
+
+		curr = next
+	}
+
+	return res
+}
+
+func swapPairsRecursively(head *ListNode) *ListNode {
+    if head == nil || head.Next == nil {
+        return head
+    }
+    p := head.Next.Next
+    
+    l := swapPairs(p)
+    
+    head.Next.Next = nil
+    r := reverseListIteratively(head)
+    r.Next.Next = l
+    
+    return r
+}
+
+func swapPairs(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return head
+	}
+
+	var res =&ListNode{0,nil}
+	var sres = res
+
+	var curr = head
+	var prev *ListNode
+	var next *ListNode
+	for curr != nil && curr.Next != nil {
+		next = curr.Next.Next
+		prev = curr.Next
+
+		curr.Next.Next = curr
+		curr.Next = nil
+
+		res.Next = prev
+		res = res.Next.Next
+
+		curr = next
+	}
+
+	res.Next = curr
+
+	return sres.Next
+}
+
+// TODO After Stack
+// 445 https://leetcode.com/problems/add-two-numbers-ii/description/
+
+// 725 https://leetcode.com/problems/split-linked-list-in-parts/description/
+
+// 328 https://leetcode.com/problems/odd-even-linked-list/description/

@@ -190,7 +190,13 @@ func Test_deleteDuplicatesIteratively(t *testing.T) {
 		args args
 		want *ListNode
 	}{
-		// TODO: Add test cases.
+		{
+			name: "",
+			args: args{
+				head: &ListNode{},
+			},
+			want: &ListNode{},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -216,6 +222,34 @@ func Test_deleteDuplicatesRecursively(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := deleteDuplicatesRecursively(tt.args.head); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("deleteDuplicatesRecursively() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_mergeTwoSortedListsIteratively(t *testing.T) {
+	type args struct {
+		l1 *ListNode
+		l2 *ListNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want *ListNode
+	}{
+		{
+			name: "",
+			args: args{
+				l1: &ListNode{1,&ListNode{3,&ListNode{5,nil}}},
+				l2: &ListNode{2,&ListNode{4,&ListNode{6,nil}}},
+			},
+			want: &ListNode{1, &ListNode{2, &ListNode{3, &ListNode{4, &ListNode{5, &ListNode{6,nil}}}}}},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := mergeTwoSortedListsIteratively(tt.args.l1, tt.args.l2); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("mergeTwoSortedListsIteratively() = %v, want %v", got, tt.want)
 			}
 		})
 	}
