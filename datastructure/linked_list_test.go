@@ -240,16 +240,42 @@ func Test_mergeTwoSortedListsIteratively(t *testing.T) {
 		{
 			name: "",
 			args: args{
-				l1: &ListNode{1,&ListNode{3,&ListNode{5,nil}}},
-				l2: &ListNode{2,&ListNode{4,&ListNode{6,nil}}},
+				l1: &ListNode{1, &ListNode{3, &ListNode{5, nil}}},
+				l2: &ListNode{2, &ListNode{4, &ListNode{6, nil}}},
 			},
-			want: &ListNode{1, &ListNode{2, &ListNode{3, &ListNode{4, &ListNode{5, &ListNode{6,nil}}}}}},
+			want: &ListNode{1, &ListNode{2, &ListNode{3, &ListNode{4, &ListNode{5, &ListNode{6, nil}}}}}},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := mergeTwoSortedListsIteratively(tt.args.l1, tt.args.l2); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("mergeTwoSortedListsIteratively() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_isPalindrome(t *testing.T) {
+	type args struct {
+		head *ListNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "",
+			args: args{
+				head: &ListNode{1,&ListNode{2,&ListNode{2,&ListNode{1,nil}}}},
+			},
+			want: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := isPalindrome(tt.args.head); got != tt.want {
+				t.Errorf("isPalindrome() = %v, want %v", got, tt.want)
 			}
 		})
 	}

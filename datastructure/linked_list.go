@@ -315,5 +315,105 @@ func swapPairs(head *ListNode) *ListNode {
 // 445 https://leetcode.com/problems/add-two-numbers-ii/description/
 
 // 725 https://leetcode.com/problems/split-linked-list-in-parts/description/
+func splitListToParts(root *ListNode, k int) []*ListNode { 
+    var l int
+    var p = root
+    for p != nil {
+        p = p.Next
+        l++
+    }
+    
+    mod := l % k
+    groups := l / k
+    
+    res := make([]*ListNode,k)
+    var curr = root
+    for i:= 0; curr != nil && i <k; i++ {
+        var curSize int
+        if mod > 0 {
+            curSize = groups + 1
+            mod--
+        } else {
+            curSize = groups
+        }
+        
+        var chead = curr
+        for j:= 0; j < curSize - 1; j++ {
+            curr = curr.Next
+        }
+        
+        next := curr.Next
+        curr.Next = nil
+        
+        res[i] = chead
+        curr = next
+    }
+    
+    return res
+}
 
 // 328 https://leetcode.com/problems/odd-even-linked-list/description/
+func oddEvenList(head *ListNode) *ListNode {
+    if head == nil || head.Next == nil {
+        return head
+    }
+    var odd = head
+    var even = odd.Next
+    
+    var fodd = odd
+    var feven = even
+    
+    for odd != nil && even != nil && odd.Next != nil && even.Next != nil {
+        odd.Next = even.Next
+        even.Next = odd.Next.Next
+        
+        odd = odd.Next
+        even = even.Next
+    }
+    odd.Next = feven
+    
+    return fodd
+}
+
+// 234 https://leetcode.com/problems/palindrome-linked-list/
+func isPalindrome(head *ListNode) bool {
+	if head == nil || head.Next == nil {
+		return true
+	}
+    slow := head
+    fast := head.Next
+    for fast != nil && fast.Next != nil{
+        slow = slow.Next
+        fast = fast.Next.Next
+    }
+    var right *ListNode
+    if fast == nil { //奇数
+        right = reverseListIteratively(slow)
+        slow.Next = nil
+    }
+    
+    if fast != nil { //偶数
+        right = reverseListIteratively(slow.Next)
+        slow.Next = nil
+    }
+
+
+
+	return isEqual(head, right)
+}
+
+func isEqual(l1, l2 *ListNode) bool {
+    for l1 != nil || l2 != nil {
+        if l1.Val != l2.Val {
+            return false
+        }
+        l1 = l1.Next
+        l2 = l2.Next
+    }
+    
+    if l1== nil && l2 == nil {
+        return true
+    }
+    
+    return false
+}
