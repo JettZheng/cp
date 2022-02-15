@@ -7,7 +7,7 @@ type ListNode struct {
 	Next *ListNode
 }
 
-// 206 https://leetcode.com/problems/reverse-linked-list/
+// L206 https://leetcode.com/problems/reverse-linked-list/
 func reverseListIteratively(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
@@ -40,7 +40,7 @@ func reverseListRecursively(head *ListNode) *ListNode {
 	return r
 }
 
-// 25 https://leetcode.com/problems/reverse-nodes-in-k-group/
+// L25 https://leetcode.com/problems/reverse-nodes-in-k-group/
 func reverseKGroup(head *ListNode, k int) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
@@ -81,7 +81,7 @@ func reverseKGroup(head *ListNode, k int) *ListNode {
 	return head
 }
 
-// 160 https://leetcode.com/problems/intersection-of-two-linked-lists/
+// L160 https://leetcode.com/problems/intersection-of-two-linked-lists/
 func getIntersectionNode(headA, headB *ListNode) *ListNode {
 	pa := headA
 	pb := headB
@@ -104,7 +104,7 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 	return pa
 }
 
-// 21 https://leetcode.com/problems/merge-two-sorted-lists/
+// L21 https://leetcode.com/problems/merge-two-sorted-lists/
 func mergeTwoSortedListsRecursively(l1, l2 *ListNode) *ListNode { //nolint
 	if l1 == nil {
 		return l2
@@ -155,7 +155,7 @@ func mergeTwoSortedListsIteratively(l1, l2 *ListNode) *ListNode { //nolint
 	return res.Next
 }
 
-// 23 https://leetcode.com/problems/merge-k-sorted-lists/
+// L23 https://leetcode.com/problems/merge-k-sorted-lists/
 func mergeKLists(lists []*ListNode) *ListNode {
 	if len(lists) == 0 {
 		return nil
@@ -177,7 +177,7 @@ func mergeKLists(lists []*ListNode) *ListNode {
 	return mergeTwoSortedListsRecursively(l,r)
 }
 
-// 83 https://leetcode.com/problems/remove-duplicates-from-sorted-list/
+// L83 https://leetcode.com/problems/remove-duplicates-from-sorted-list/
 func deleteDuplicatesIteratively(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
@@ -210,7 +210,7 @@ func deleteDuplicatesRecursively(head *ListNode) *ListNode {
 	return l
 }
 
-// 19 https://leetcode.com/problems/remove-nth-node-from-end-of-list/
+// L19 https://leetcode.com/problems/remove-nth-node-from-end-of-list/
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	if head == nil {
 		return head
@@ -238,7 +238,7 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	return head
 }
 
-// 24 https://leetcode.com/problems/swap-nodes-in-pairs/
+// L24 https://leetcode.com/problems/swap-nodes-in-pairs/
 func swapPairs2(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
@@ -312,9 +312,9 @@ func swapPairs(head *ListNode) *ListNode {
 }
 
 // TODO After Stack
-// 445 https://leetcode.com/problems/add-two-numbers-ii/description/
+// L445 https://leetcode.com/problems/add-two-numbers-ii/description/
 
-// 725 https://leetcode.com/problems/split-linked-list-in-parts/description/
+// L725 https://leetcode.com/problems/split-linked-list-in-parts/description/
 func splitListToParts(root *ListNode, k int) []*ListNode { 
     var l int
     var p = root
@@ -352,7 +352,7 @@ func splitListToParts(root *ListNode, k int) []*ListNode {
     return res
 }
 
-// 328 https://leetcode.com/problems/odd-even-linked-list/description/
+// L328 https://leetcode.com/problems/odd-even-linked-list/description/
 func oddEvenList(head *ListNode) *ListNode {
     if head == nil || head.Next == nil {
         return head
@@ -375,7 +375,7 @@ func oddEvenList(head *ListNode) *ListNode {
     return fodd
 }
 
-// 234 https://leetcode.com/problems/palindrome-linked-list/
+// L234 https://leetcode.com/problems/palindrome-linked-list/
 func isPalindrome(head *ListNode) bool {
 	if head == nil || head.Next == nil {
 		return true
