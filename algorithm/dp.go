@@ -1,6 +1,5 @@
 package algorithm
 
-//[]
 
 func jett(nums []int,l, r int) int {
 	if l >= r {
@@ -75,7 +74,6 @@ func canJump(nums []int) bool {
 
 	return res[0]
 }
-
 
 func maxProfit(prices []int) int {
     _,p :=dp(prices,0)

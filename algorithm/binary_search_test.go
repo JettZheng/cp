@@ -23,7 +23,7 @@ func Test_search(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := search(tt.args.nums, tt.args.target); got != tt.want {
+			if got := binarySearchTemplate1(tt.args.nums, tt.args.target); got != tt.want {
 				t.Errorf("search() = %v, want %v", got, tt.want)
 			}
 		})

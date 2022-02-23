@@ -2,7 +2,8 @@ package algorithm
 
 import "sort"
 
-func search(nums []int, target int) int {
+// [l,r)
+func binarySearchTemplate1(nums []int, target int) int {
 	sort.Slice(nums, func(i, j int) bool {
 		return nums[i] < nums[j]
 	})
@@ -22,7 +23,6 @@ func search(nums []int, target int) int {
 		if nums[m] == target {
 			return m
 		}
-
 	}
 
 	return -1
