@@ -61,21 +61,54 @@ func moveZeroes(nums []int)  {
 	}
 }
 
-func twoSum(numbers []int, target int) []int {
-    var res []int
-	var i,j int
-	j = len(numbers) -1
-	for i <= j {
-		if numbers[i] + numbers[j] > target {
-			j-=1
-		}
-		if numbers[i] + numbers[j] < target {
-			i+=1
-		}
-		if numbers[i] + numbers[j] == target{
-			return []int {i,j}
+// 2371 9
+/*
+2 0
+3 1
+7 2
+1 3
+*/
+func twoSum(nums []int, target int) []int {
+	var dict = make(map[int]int,len(nums))
+
+	var res []int
+	for i := range nums {
+		if index,ok := dict[target - nums[i]];ok {
+			res = append(res, []int{nums[index],nums[i]}...)
+			break
+		} else {
+			dict[nums[i]] = i
 		}
 	}
 
 	return res
+}
+
+
+func threeSum(nums []int) [][]int {
+    var targets = make([]int,len(nums))
+
+	for i := range nums {
+		targets[i] = 0-nums[i]
+	}
+
+	var res [][]int
+
+	for i := range nums {
+		arr := append(nums[:i],nums[i+1:]...)
+		temp := twoSum(arr,targets[i])
+		if len(temp) > 0 {
+            temp = append(temp,nums[i])
+			res = append(res, temp)
+		}
+	}
+
+	return res
+}
+
+func testappend(){
+
+	var a = []int{-2,-4,4,3,1}
+	var b = append(a[:1],a[2:]...)
+	print(b)
 }

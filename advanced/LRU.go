@@ -1,82 +1,76 @@
 package advanced
 
 type LRUCache struct {
-	Head    *Node
-	Tail    *Node
-	Cap     int
-	NodeMap map[int]*Node
+    Cap int
+    Dict map[int]*Node
+    Head *Node
+    Tail *Node
 }
 
 type Node struct {
-	Key int
-	Val  int
-	Prev *Node
-	Next *Node
+    Key int
+    Val int
+    Prev *Node
+    Next *Node
 }
 
 func Constructor(capacity int) LRUCache {
-	head := new(Node)
-	head.Next = new(Node)
-	head.Next.Prev = head
-
-	return LRUCache{
-		Head:    head,
-		Tail:    head.Next,
-		Cap:     capacity,
-		NodeMap: make(map[int]*Node),
-	}
+    head := new(Node)
+    tail := new(Node)
+    head.Next = tail
+    tail.Prev = head
+	
+    return LRUCache {
+        Cap: capacity,
+        Dict: make(map[int]*Node),
+        Head:head,
+        Tail:tail,
+    }
 }
+
 
 func (this *LRUCache) Get(key int) int {
-	if node,ok := this.NodeMap[key];ok {
-		this.remove(node)
-		this.add(node)
-		return node.Val
-	}
-	return -1
+    if node,ok := this.Dict[key];ok {
+        this.remove(node)
+        this.add(node.Key,node.Val)
+        return node.Val
+    }
+    
+    return -1
 }
 
-func (this *LRUCache) Put(key int, value int) {
-	if node,ok := this.NodeMap[key];ok {
-		this.remove(node)
-		lnode := new(Node)
-		lnode.Key = key
-		lnode.Val = value
-		this.add(lnode)
-	}else {
-		if len(this.NodeMap) < this.Cap {
-			node := new(Node)
-			node.Key = key
-			node.Val = value	
-			this.add(node)
-			this.NodeMap[key] = node
-		} else {
-			node := new(Node)
-			node.Key = key
-			node.Val = value	
-			this.add(node)
-			this.NodeMap[key] = node
-	
-			this.remove(this.Tail.Prev)
-		}
-	}
+
+func (this *LRUCache) Put(key int, value int)  {
+    if node,ok := this.Dict[key]; ok {
+        this.remove(node)
+        this.add(key,value)
+    }else {
+        if len(this.Dict) ==this.Cap {
+            this.remove(this.Tail.Prev)
+            this.add(key,value)
+        }else if len(this.Dict) < this.Cap {
+            this.add(key,value)
+        }
+    }
 }
 
-func (this *LRUCache) add(node *Node) {
-	temp := this.Head.Next
-	temp.Prev = node
-	this.Head.Next = node
-
-	node.Prev = this.Head
-	node.Next = temp
-
-	this.NodeMap[node.Key] = node
+func (this *LRUCache) remove(node *Node){
+    delete(this.Dict,node.Key)
+    node.Prev.Next = node.Next
+    node.Next.Prev = node.Prev
 }
 
-func (this *LRUCache) remove(node *Node) {
-	node.Prev.Next = node.Next
-	node.Next.Prev = node.Prev
-	delete(this.NodeMap,node.Key)
+func (this *LRUCache) add(key,val int){
+    var temp =&Node{}
+    temp.Key = key
+    temp.Val = val
+    temp.Next = this.Head.Next
+    this.Head.Next.Prev = temp
+    
+    temp.Prev = this.Head
+    this.Head.Next = temp
+    
+    this.Dict[key] = temp
 }
 
 func testLRU() {

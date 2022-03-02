@@ -46,39 +46,35 @@ func reverseKGroup(head *ListNode, k int) *ListNode {
 		return head
 	}
 
+	var prev *ListNode
+	var curr = head
+
 	var count int
-	var pointer = head
-	var ppointer *ListNode
 
-	for i := 0; i < k; i++ {
-		if pointer != nil {
-			ppointer = pointer
-			pointer = pointer.Next
-			count++
-		} else {
-			break
-		}
+	for count < k && curr != nil{
+		prev = curr
+		curr = curr.Next
+		count ++
 	}
 
-	ppointer.Next = nil
-
-	if count == k {
-		r := reverseKGroup(pointer, k)
-		l := reverseListIteratively(head)
-
-		temp := l
-		for temp != nil {
-			if temp.Next == nil {
-				break
-			}
-			temp = temp.Next
-		}
-		temp.Next = r
-
-		return l
+	if count < k {
+		return head
 	}
 
-	return head
+	r := reverseKGroup(curr,k)
+
+	prev.Next = nil
+	l :=reverseListIteratively(head)
+
+	var res = l
+
+	for l.Next != nil {
+		l = l.Next
+	}
+
+	l.Next = r
+
+	return res
 }
 
 // L160 https://leetcode.com/problems/intersection-of-two-linked-lists/

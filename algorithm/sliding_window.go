@@ -1,5 +1,7 @@
 package algorithm
-// 、"abcabcbb 3 // "tmmzuxt"
+// 、"abcbbcbb 3 // "tmmzuxt"
+
+// "norepeat" b
 func lengthOfLongestSubstring(s string) int {
     var i,j,res int
 
@@ -8,7 +10,7 @@ func lengthOfLongestSubstring(s string) int {
 	var charmap = make(map[byte]int)
 
 	for ; i < len(b) && j < len(b); j++ {
-		if x,ok := charmap[b[j]];ok && x > i{
+		if x,ok := charmap[b[j]];ok && i <= x{
 			i = x + 1
 		} else {
 			res = max(res,j-i +1)
@@ -19,6 +21,14 @@ func lengthOfLongestSubstring(s string) int {
 	
 	return res
 }
+
+/* idea: use two pointers
+do interatively to record max length,use map to deal with repeat problem
+when we find repeat:
+e.g."12345" 3 comes, we should start new round from 3, so it should be 345 continue,and we need to clean the map of before 3 value also
+but map has no sequence
+so when i comes before 3, we do not start.like when 2 comes, because the index of 2 is 1,less than what we start point,we just give it up.
+*/
 
 //Input: s1 = "abc", s2 = "bbbac"
 //Output: true
