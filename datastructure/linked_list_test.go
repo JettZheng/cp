@@ -7,7 +7,7 @@ import (
 
 var (
 	testNodeA  = &ListNode{1, &ListNode{2, &ListNode{3, &ListNode{4, &ListNode{5, nil}}}}}
-	testNodeA1 = &ListNode{1, &ListNode{2, &ListNode{3, &ListNode{5, nil}}}}
+	testNodeA1 = &ListNode{1, &ListNode{2, &ListNode{3, &ListNode{4, nil}}}}
 	testNodeB  = &ListNode{2, &ListNode{3, &ListNode{4, &ListNode{5, nil}}}}
 	testNodeC  = &ListNode{2, &ListNode{3, &ListNode{4, &ListNode{5, nil}}}}
 	testNodeD  = &ListNode{2, nil}
@@ -267,7 +267,7 @@ func Test_isPalindrome(t *testing.T) {
 		{
 			name: "",
 			args: args{
-				head: &ListNode{1,&ListNode{2,&ListNode{2,&ListNode{1,nil}}}},
+				head: &ListNode{1, &ListNode{2, &ListNode{2, &ListNode{1, nil}}}},
 			},
 			want: true,
 		},
@@ -277,6 +277,58 @@ func Test_isPalindrome(t *testing.T) {
 			if got := isPalindrome(tt.args.head); got != tt.want {
 				t.Errorf("isPalindrome() = %v, want %v", got, tt.want)
 			}
+		})
+	}
+}
+
+func Test_reverseBetween(t *testing.T) {
+	type args struct {
+		head  *ListNode
+		left  int
+		right int
+	}
+	tests := []struct {
+		name string
+		args args
+		want *ListNode
+	}{
+		{
+			name: "",
+			args: args{
+				head:  testNodeA,
+				left:  1,
+				right: 5,
+			},
+			want: &ListNode{},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := reverseBetween(tt.args.head, tt.args.left, tt.args.right); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("reverseBetween() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_reorderList(t *testing.T) {
+	type args struct {
+		head *ListNode
+	}
+	tests := []struct {
+		name string
+		args args
+	}{
+		{
+			name: "",
+			args: args{
+				head: testNodeA1,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			reorderList(tt.args.head)
 		})
 	}
 }

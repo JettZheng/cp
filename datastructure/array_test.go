@@ -77,13 +77,39 @@ func Test_generate(t *testing.T) {
 			args: args{
 				numRows: 4,
 			},
-			want: [][]int{{1},{1,1},{1,2,1},{1,3,3,1}},
+			want: [][]int{{1}, {1, 1}, {1, 2, 1}, {1, 3, 3, 1}},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := generate(tt.args.numRows); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("generate() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_mergeIntervals(t *testing.T) {
+	type args struct {
+		intervals [][]int
+	}
+	tests := []struct {
+		name string
+		args args
+		want [][]int
+	}{
+		{
+			name: "",
+			args: args{
+				intervals: [][]int{{1,3},{2,6},{8,10},{15,18}},
+			},
+			want: [][]int{},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := mergeIntervals(tt.args.intervals); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("mergeIntervals() = %v, want %v", got, tt.want)
 			}
 		})
 	}

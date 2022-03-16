@@ -101,3 +101,128 @@ func dp(prices []int,i int) (lpoint int,profit int) {
     
     return i,prices[i]-prices[l] + p
 }
+
+/* "abcbcad"
+	state(j,j) = true
+	state(j-1,j+1) = state(j,j) && s[j-1] + s[j+1]
+*/
+func longestPalindrome(s string) string {
+	if len(s) == 0 {
+		return ""
+	}
+
+	var state = make([][]bool,len(s))
+
+	for i := 0; i < len(s); i++ {
+		state[i] = make([]bool,len(s))
+	}
+
+	var start,end,max int
+
+	for j := 0; j < len(s); j++ {
+		state[j][j] = true//?
+
+		for i := 0; i < j; i++ {
+			if j - i == 1 {
+				state[i][j] = s[i] == s[j]
+			}else {
+				state[i][j] = state[i+1][j-1] && s[i] == s[j]
+			}
+
+			if j - i + 1 > max {
+				max = j - i + 1
+				start = i
+				end = j
+			}
+		}
+	}
+
+	return s[start:end]
+}
+
+/* 
+300.https://leetcode.com/problems/longest-increasing-subsequence/
+idea:
+
+1.使用动态规划
+状态：用一维数组记录每个以该元素结尾的最大长度是多少 dp[i]
+状态转移： dp[i] = nums[i]> nums[j] 则说明形成有序，可以在该元素上追加一个， 0->i-1 遍历迭代记录每个位置是否形成有序，找出最大值。
+
+遍历整个dp数组，找出最大值即可
+*/
+
+func lengthOfLIS(nums []int) int {
+    var dp = make([]int, len(nums))
+    
+    for i := range dp {
+        dp[i] = 1
+    }
+    
+    var res = 1
+    for i := 1; i < len(nums); i ++ {
+        var dmax = 1
+        for j := 0; j < i; j ++ {
+            if nums[i] > nums[j] {
+                dmax = max(dmax,dp[j] + 1)
+            }
+        }
+        
+        dp[i] = dmax
+        res = max(res,dmax)
+    }
+    
+    return res
+}
+
+//  dp[i] = dp[i-1] + dp[i-2]
+func climbStairs(n int) int {
+    if n <= 2 {
+        return n
+    }
+    
+    var a,b,c int
+    a = 1
+    b = 2
+    
+    for i:=2;i<n;i++ {
+        c = a+b
+        a = b
+        b = c
+    }
+    
+    return c
+}
+
+/*
+	状态：保存每一个点的最大经过路径
+	状态转移：如果是该列的第一个，只能计算上方的最大值，往下走 一个选择
+	如果是该列其他个，则需要计算 上方走下来，还是左边走过来的 两个值比较大小
+*/
+func maxPath(nums [][]int) int {
+	var dp = make([][]int,len(nums))
+
+	a := len(nums[0])
+	for i := range dp {
+		dp[i] = make([]int, a)
+	}
+
+	dp[0][0] = nums[0][0]
+
+	var res int
+	var count = 2
+	for i := 1; i < len(nums); i++ {
+		for j := 0; j < count; j ++ {
+			if j - 1 >= 0 {
+				dp[i][j] = max(dp[i-1][j],dp[i][j-1])+nums[i][j]
+			} else {
+				dp[i][j] = dp[i-1][j]+nums[i][j]
+			}
+
+			res = max(res,dp[i][j])
+		}
+		count++
+
+	}
+
+	return res
+}

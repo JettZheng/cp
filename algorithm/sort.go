@@ -25,3 +25,30 @@ func partition(nums []int,l,r int) int {
 
 	return p
 }
+
+func mergeSort() {
+
+}
+
+func heapSort() {
+
+}
+
+func bucketSort() {
+
+}
+
+// like playing card insert the card
+func insertSort() {
+
+}
+
+// bubble two values
+func bubbleSort() {
+
+}
+
+// select max values from array
+func selectSort() {
+
+}

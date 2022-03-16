@@ -1,5 +1,7 @@
 package datastructure
 
+import "sort"
+
 func merge(nums1 []int, m int, nums2 []int, n int) {
 	var j, k int
 	var temp = make([]int, m)
@@ -113,3 +115,25 @@ func searchMatrix(matrix [][]int, target int) bool {
     return false
 }
 
+func mergeIntervals(intervals [][]int) [][]int {
+	var res [][]int
+	sort.Slice(intervals,func(i, j int) bool {
+		if intervals[i][0] < intervals[j][0] {
+			return true
+		}
+		return false
+	})
+
+	res = append(res, intervals[0])
+	var j int
+	for i := 1; i < len(intervals); i++ {
+		if intervals[i][0] > res[j][1] {
+			res = append(res, intervals[i])
+			j++
+		} else {
+			res[j][1] = intervals[i][1]
+		}
+	}
+
+	return res
+}

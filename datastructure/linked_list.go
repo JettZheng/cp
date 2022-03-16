@@ -1,6 +1,8 @@
 package datastructure
 
-import "reflect"
+import (
+	"reflect"
+)
 
 type ListNode struct {
 	Val  int
@@ -51,20 +53,20 @@ func reverseKGroup(head *ListNode, k int) *ListNode {
 
 	var count int
 
-	for count < k && curr != nil{
+	for count < k && curr != nil {
 		prev = curr
 		curr = curr.Next
-		count ++
+		count++
 	}
 
 	if count < k {
 		return head
 	}
 
-	r := reverseKGroup(curr,k)
+	r := reverseKGroup(curr, k)
 
 	prev.Next = nil
-	l :=reverseListIteratively(head)
+	l := reverseListIteratively(head)
 
 	var res = l
 
@@ -162,15 +164,15 @@ func mergeKLists(lists []*ListNode) *ListNode {
 	}
 
 	if len(lists) == 2 {
-		return mergeTwoSortedListsRecursively(lists[0],lists[1])
+		return mergeTwoSortedListsRecursively(lists[0], lists[1])
 	}
 
-	m := len(lists)/2
+	m := len(lists) / 2
 
 	l := mergeKLists(lists[:m])
-    r := mergeKLists(lists[m:])
+	r := mergeKLists(lists[m:])
 
-	return mergeTwoSortedListsRecursively(l,r)
+	return mergeTwoSortedListsRecursively(l, r)
 }
 
 // L83 https://leetcode.com/problems/remove-duplicates-from-sorted-list/
@@ -264,18 +266,18 @@ func swapPairs2(head *ListNode) *ListNode {
 }
 
 func swapPairsRecursively(head *ListNode) *ListNode {
-    if head == nil || head.Next == nil {
-        return head
-    }
-    p := head.Next.Next
-    
-    l := swapPairs(p)
-    
-    head.Next.Next = nil
-    r := reverseListIteratively(head)
-    r.Next.Next = l
-    
-    return r
+	if head == nil || head.Next == nil {
+		return head
+	}
+	p := head.Next.Next
+
+	l := swapPairs(p)
+
+	head.Next.Next = nil
+	r := reverseListIteratively(head)
+	r.Next.Next = l
+
+	return r
 }
 
 func swapPairs(head *ListNode) *ListNode {
@@ -283,7 +285,7 @@ func swapPairs(head *ListNode) *ListNode {
 		return head
 	}
 
-	var res =&ListNode{0,nil}
+	var res = &ListNode{0, nil}
 	var sres = res
 
 	var curr = head
@@ -311,64 +313,64 @@ func swapPairs(head *ListNode) *ListNode {
 // L445 https://leetcode.com/problems/add-two-numbers-ii/description/
 
 // L725 https://leetcode.com/problems/split-linked-list-in-parts/description/
-func splitListToParts(root *ListNode, k int) []*ListNode { 
-    var l int
-    var p = root
-    for p != nil {
-        p = p.Next
-        l++
-    }
-    
-    mod := l % k
-    groups := l / k
-    
-    res := make([]*ListNode,k)
-    var curr = root
-    for i:= 0; curr != nil && i <k; i++ {
-        var curSize int
-        if mod > 0 {
-            curSize = groups + 1
-            mod--
-        } else {
-            curSize = groups
-        }
-        
-        var chead = curr
-        for j:= 0; j < curSize - 1; j++ {
-            curr = curr.Next
-        }
-        
-        next := curr.Next
-        curr.Next = nil
-        
-        res[i] = chead
-        curr = next
-    }
-    
-    return res
+func splitListToParts(root *ListNode, k int) []*ListNode {
+	var l int
+	var p = root
+	for p != nil {
+		p = p.Next
+		l++
+	}
+
+	mod := l % k
+	groups := l / k
+
+	res := make([]*ListNode, k)
+	var curr = root
+	for i := 0; curr != nil && i < k; i++ {
+		var curSize int
+		if mod > 0 {
+			curSize = groups + 1
+			mod--
+		} else {
+			curSize = groups
+		}
+
+		var chead = curr
+		for j := 0; j < curSize-1; j++ {
+			curr = curr.Next
+		}
+
+		next := curr.Next
+		curr.Next = nil
+
+		res[i] = chead
+		curr = next
+	}
+
+	return res
 }
 
 // L328 https://leetcode.com/problems/odd-even-linked-list/description/
 func oddEvenList(head *ListNode) *ListNode {
-    if head == nil || head.Next == nil {
-        return head
-    }
-    var odd = head
-    var even = odd.Next
-    
-    var fodd = odd
-    var feven = even
-    
-    for odd != nil && even != nil && odd.Next != nil && even.Next != nil {
-        odd.Next = even.Next
-        even.Next = odd.Next.Next
-        
-        odd = odd.Next
-        even = even.Next
-    }
-    odd.Next = feven
-    
-    return fodd
+	if head == nil || head.Next == nil {
+		return head
+	}
+	var odd = head
+	var even = odd.Next
+
+	var fodd = odd
+	var feven = even
+
+	for odd != nil && even != nil && odd.Next != nil && even.Next != nil {
+		odd.Next = even.Next
+		even.Next = odd.Next.Next
+
+		odd = odd.Next
+		even = even.Next
+	}
+	odd.Next = feven
+
+	return fodd
 }
 
 // L234 https://leetcode.com/problems/palindrome-linked-list/
@@ -376,40 +378,143 @@ func isPalindrome(head *ListNode) bool {
 	if head == nil || head.Next == nil {
 		return true
 	}
-    slow := head
-    fast := head.Next
-    for fast != nil && fast.Next != nil{
-        slow = slow.Next
-        fast = fast.Next.Next
-    }
-    var right *ListNode
-    if fast == nil { //奇数
-        right = reverseListIteratively(slow)
-        slow.Next = nil
-    }
-    
-    if fast != nil { //偶数
-        right = reverseListIteratively(slow.Next)
-        slow.Next = nil
-    }
+	slow := head
+	fast := head.Next
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+	var right *ListNode
+	if fast == nil { //奇数
+		right = reverseListIteratively(slow)
+		slow.Next = nil
+	}
 
-
+	if fast != nil { //偶数
+		right = reverseListIteratively(slow.Next)
+		slow.Next = nil
+	}
 
 	return isEqual(head, right)
 }
 
 func isEqual(l1, l2 *ListNode) bool {
-    for l1 != nil || l2 != nil {
-        if l1.Val != l2.Val {
-            return false
-        }
-        l1 = l1.Next
-        l2 = l2.Next
-    }
-    
-    if l1== nil && l2 == nil {
-        return true
-    }
-    
-    return false
+	for l1 != nil || l2 != nil {
+		if l1.Val != l2.Val {
+			return false
+		}
+		l1 = l1.Next
+		l2 = l2.Next
+	}
+
+	if l1 == nil && l2 == nil {
+		return true
+	}
+
+	return false
 }
+
+// 12345
+// 14325
+func reverseBetween(head *ListNode, left int, right int) *ListNode {
+	if head == nil {
+		return head
+	}
+
+	rhead := head
+	var rheadPrev *ListNode
+
+	for left > 1 {
+		rheadPrev = rhead
+		rhead = rhead.Next
+		left--
+		right--
+	}
+
+	curr := rhead
+	next := rhead.Next
+	var prev *ListNode
+
+	for right > 0 {
+		next = curr.Next
+
+		curr.Next = prev
+
+		prev = curr
+		curr = next
+		right--
+	}
+
+	if rheadPrev != nil {
+		rheadPrev.Next = prev
+	} else {
+		head = prev
+	}
+
+	rhead.Next = next
+
+	return head
+}
+
+//12345 2
+//s f
+func detectCycle(head *ListNode) *ListNode {
+	if head == nil || head.Next == nil {
+		return nil
+	}
+	phead := head
+
+	slow := phead
+	fast := phead
+
+	var meetpoint *ListNode
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+		if slow == fast {
+			meetpoint = slow
+			break
+		}
+	}
+
+	if meetpoint != nil {
+		for head != nil {
+			if head == meetpoint {
+				return head
+			}
+			head = head.Next
+			meetpoint = meetpoint.Next
+		}
+	}
+
+	return nil
+}
+
+func reorderList(head *ListNode)  {
+    if head == nil || head.Next == nil {
+        return
+    }
+    
+    var slow = head
+    var fast = head
+    
+    for fast != nil && fast.Next != nil {
+        slow = slow.Next
+        fast = fast.Next.Next
+    }
+
+    a := reverseListIteratively(slow)
+    
+    curr := head
+    for a != nil && curr != nil && a.Next != nil && curr.Next != nil{
+        temp := curr.Next
+        curr.Next = a
+        
+        temp2 := a.Next
+        a.Next = temp
+        
+        curr = temp
+        a = temp2
+    }
+}
+
