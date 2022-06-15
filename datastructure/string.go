@@ -28,13 +28,19 @@ func firstUniqChar(s string) int {
 	return res
 }
 
+/*
+    "123"
+    +"45"
+
+    168
+*/
 func addStrings(num1 string, num2 string) string {
     i:= len(num1)-1
     j:= len(num2)-1
     
     var res []byte
     if i > j {
-        res = make([]byte,i+2)        
+        res = make([]byte,i+2)   
     } else {
         res = make([]byte,j+2)
     }

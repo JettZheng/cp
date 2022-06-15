@@ -94,7 +94,7 @@ func Test_maxPath(t *testing.T) {
 		{
 			name: "",
 			args: args{
-				nums: [][]int{{7,0,0,0},{3,8,0,0},{8,1,0,0},{2,7,4,4}},
+				nums: [][]int{{7, 0, 0, 0}, {3, 8, 0, 0}, {8, 1, 0, 0}, {2, 7, 4, 4}},
 			},
 			want: 0,
 		},
@@ -103,6 +103,58 @@ func Test_maxPath(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := maxPath(tt.args.nums); got != tt.want {
 				t.Errorf("maxPath() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_maxProduct(t *testing.T) {
+	type args struct {
+		nums []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "",
+			args: args{
+				nums: []int{2, 3, -2, 4},
+			},
+			want: 120,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := maxProduct(tt.args.nums); got != tt.want {
+				t.Errorf("maxProduct() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_findMin(t *testing.T) {
+	type args struct {
+		nums []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "",
+			args: args{
+				nums: []int{2,3,4,5,6,7,1},
+			},
+			want: 1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := findMin(tt.args.nums); got != tt.want {
+				t.Errorf("findMin() = %v, want %v", got, tt.want)
 			}
 		})
 	}

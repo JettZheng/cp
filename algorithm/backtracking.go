@@ -25,4 +25,35 @@ func permute(nums []int) [][]int {
 
 }
 
+func subsets(nums []int) [][]int {
+    var res [][]int
+    var backtrack func (i int,curr []int)
+    
+    backtrack = func(i int,curr []int){
+        if i > len(nums){
+            return
+        }
+        
+        if i == len(nums) {
+            res = append(res,curr)
+            return
+        }
+        
+        curr = append(curr,nums[i])
+
+
+        
+        backtrack(i+1,curr)
+        
+        curr = curr[:len(curr)-1]
+        
+
+        backtrack(i+1,curr)
+    }
+    
+    backtrack(0,[]int{})
+    
+    return res
+}
+
 

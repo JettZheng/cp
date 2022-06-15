@@ -54,8 +54,8 @@ func Test_rightSideView(t *testing.T) {
 				root: &TreeNode{
 					Val: 0,
 					Left: &TreeNode{
-						Val:   1,
-						Left:  &TreeNode{
+						Val: 1,
+						Left: &TreeNode{
 							Val:   3,
 							Left:  nil,
 							Right: nil,
@@ -76,6 +76,124 @@ func Test_rightSideView(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := rightSideView(tt.args.root); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("rightSideView() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_traversalByColorMark(t *testing.T) {
+	type args struct {
+		root *TreeNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{
+			name: "",
+			args: args{
+				root: &TreeNode{
+					Val: 0,
+					Left: &TreeNode{
+						Val: 1,
+						Left: &TreeNode{
+							Val:   3,
+							Left:  nil,
+							Right: nil,
+						},
+						Right: &TreeNode{
+							Val:   4,
+							Left:  nil,
+							Right: nil,
+						},
+					},
+					Right: &TreeNode{
+						Val: 2,
+						Left: &TreeNode{
+							Val:   5,
+							Left:  nil,
+							Right: nil,
+						},
+						Right: &TreeNode{
+							Val:   6,
+							Left:  nil,
+							Right: nil,
+						},
+					},
+				},
+			},
+			want: []int{},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := traversalByColorMark(tt.args.root); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("traversalByColorMark() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_maxPathSum(t *testing.T) {
+	type args struct {
+		root *TreeNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "",
+			args: args{
+				root: &TreeNode{
+					Val:   -3,
+					Left:  nil,
+					Right: nil,
+				},
+			},
+			want: 0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := maxPathSum(tt.args.root); got != tt.want {
+				t.Errorf("maxPathSum() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_diameterOfBinaryTree2(t *testing.T) {
+	type args struct {
+		root *TreeNode
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "",
+			args: args{
+				root: &TreeNode{
+					Val:   0,
+					Left:  &TreeNode{
+						Val:   1,
+						Left:  nil,
+						Right: nil,
+					},
+					Right: nil,
+				},
+			},
+			want: 0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := diameterOfBinaryTree2(tt.args.root); got != tt.want {
+				t.Errorf("diameterOfBinaryTree2() = %v, want %v", got, tt.want)
 			}
 		})
 	}

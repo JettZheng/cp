@@ -5,7 +5,8 @@ package golang
 func testSlice() {
 	var a = []int{1,2,3,4}
 	var b = append(a[:2],5)
-	
+	var ee = a[1:1]
+	print(ee)
 	var d = a[1:2:3]
 	print(d)
 	// append 在底层数组容量不足时扩容，足够时在slice指向的切片追加
@@ -28,4 +29,13 @@ func testSlice() {
 	print(cap(a))
 	print(a)
 	print(b)
+
+	var arr =[]int{1,2,3}  
+	testslicep(arr)
+	print(len(arr))
+}
+
+
+func testslicep(a []int) {
+	a = append(a, 1)
 }

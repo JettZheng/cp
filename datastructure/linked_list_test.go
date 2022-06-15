@@ -311,7 +311,7 @@ func Test_reverseBetween(t *testing.T) {
 	}
 }
 
-func Test_reorderList(t *testing.T) {
+func Test_reorderList2(t *testing.T) {
 	type args struct {
 		head *ListNode
 	}
@@ -322,13 +322,13 @@ func Test_reorderList(t *testing.T) {
 		{
 			name: "",
 			args: args{
-				head: testNodeA1,
+				head: testNodeA,
 			},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			reorderList(tt.args.head)
+			reorderList2(tt.args.head)
 		})
 	}
 }

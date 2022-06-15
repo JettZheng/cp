@@ -1,6 +1,8 @@
 package datastructure
 
-import "testing"
+import (
+	"testing"
+)
 
 func Test_isValid(t *testing.T) {
 	type args struct {
@@ -24,6 +26,21 @@ func Test_isValid(t *testing.T) {
 			if got := isValid(tt.args.s); got != tt.want {
 				t.Errorf("isValid() = %v, want %v", got, tt.want)
 			}
+		})
+	}
+}
+
+func Test_testqu(t *testing.T) {
+	tests := []struct {
+		name string
+	}{
+		{
+			name: "",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			testqu()
 		})
 	}
 }

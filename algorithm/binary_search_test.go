@@ -45,7 +45,7 @@ func Test_binarySearchRecursively(t *testing.T) {
 		{
 			name: "",
 			args: args{
-				nums:   []int{1,2,3,4,6},
+				nums:   []int{1, 2, 3, 4, 6},
 				target: 5,
 			},
 			want: -1,
@@ -55,6 +55,90 @@ func Test_binarySearchRecursively(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := search(tt.args.nums, tt.args.target); got != tt.want {
 				t.Errorf("binarySearchRecursively() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_binarySearchLower(t *testing.T) {
+	type args struct {
+		nums   []int
+		target int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "",
+			args: args{
+				nums:   []int{1, 2, 2, 2, 6},
+				target: 6,
+			},
+			want: 4,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := binarySearchLower(tt.args.nums, tt.args.target); got != tt.want {
+				t.Errorf("binarySearchLower() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_binarySearchUpper(t *testing.T) {
+	type args struct {
+		nums   []int
+		target int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "",
+			args: args{
+				nums:   []int{1, 2, 2, 2, 6},
+				target: 2,
+			},
+			want: 3,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := binarySearchUpper(tt.args.nums, tt.args.target); got != tt.want {
+				t.Errorf("binarySearchUpper() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_hsearch(t *testing.T) {
+	type args struct {
+		arr    []int
+		target int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			name: "",
+			args: args{
+				arr:    []int{15, 16, 19, 20, 25, 1, 3, 4, 5, 7, 10, 14},
+				target: 5,
+			},
+			want: 8,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := hsearch(tt.args.arr, tt.args.target); got != tt.want {
+				t.Errorf("hsearch() = %v, want %v", got, tt.want)
 			}
 		})
 	}

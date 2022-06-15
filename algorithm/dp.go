@@ -1,5 +1,30 @@
 package algorithm
 
+import "math"
+
+
+
+func maxProduct(nums []int) int {
+	if len(nums) == 0 {
+		return 0
+	}
+	var res = math.MinInt32
+
+	var dpmax = make([]int,len(nums))
+	var dpmin = make([]int,len(nums))
+
+	dpmax[0] = nums[0]
+	dpmin[0] = nums[0]
+
+	res = max(dpmax[0],res)
+	for i := 1; i <= len(nums)-1; i ++ {
+		dpmax[i] = max(nums[i],max(nums[i] * dpmax[i-1],nums[i] * dpmin[i-1]))
+		dpmin[i] = minTwo(nums[i],minTwo(nums[i] * dpmin[i-1],nums[i] * dpmax[i-1]))
+		res = max(dpmax[i],res)
+	}
+
+	return res
+}
 
 func jett(nums []int,l, r int) int {
 	if l >= r {
@@ -225,4 +250,73 @@ func maxPath(nums [][]int) int {
 	}
 
 	return res
+}
+
+
+func maximalSquare(matrix [][]byte) int {
+    var res int
+    m := len(matrix)
+    n := len(matrix[0])
+
+    var dp = make([][]int,m)
+    for i := range dp {
+        dp[i] = make([]int,n)
+    }
+    for i := m-1; i >= 0; i -- {
+        for j := n-1; j >= 0;j-- {
+            if i + 1 == m || j + 1 == n {
+                if matrix[i][j] == '1' {
+                    dp[i][j] = 1
+                }
+                continue
+            }
+        }
+    }
+
+    for i := m-2; i >= 0; i -- {
+        for j := n-2; j >= 0;j-- {
+            if matrix[i][j] == '1' {
+                dp[i][j] = min(dp[i+1][j],dp[i+1][j+1],dp[i][j+1]) + 1
+            }
+
+            res = max(res,dp[i][j])
+        }
+    }
+    return res
+}
+
+func min(a,b,c int) int {
+    var temp int
+    if a > b {
+       temp = b
+    } else {
+        temp = a
+    }
+    if temp > c {
+        return c
+    }
+    return temp
+}
+
+func minTwo(a,b int) int {
+    if a > b {
+       return b
+    }
+
+    return a
+}
+
+// [5,6,7,1,2,3,4]
+// [2,3,4,5,6,7,1]
+func findMin(nums []int) int {
+    low, high := 0, len(nums) - 1
+    for low < high {
+        pivot := low + (high - low) / 2
+        if nums[pivot] < nums[high] {
+            high = pivot
+        } else {
+            low = pivot + 1
+        }
+    }
+    return nums[low]
 }
