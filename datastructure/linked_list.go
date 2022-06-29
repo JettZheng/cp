@@ -14,9 +14,9 @@ func reverseListIteratively(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
 	}
+
+	var prev,next *ListNode
 	var curr = head
-	var next = curr.Next
-	var prev *ListNode
 
 	for curr != nil {
 		next = curr.Next
@@ -85,7 +85,7 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 	pb := headB
 
 	// headA and headB length not same,if let them meet, speed is same, make the distance offset.
-	for !reflect.DeepEqual(pa, pb) {
+	for pa != pb {
 		if pa != nil {
 			pa = pa.Next
 		} else {
@@ -105,7 +105,7 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 // L21 https://leetcode.com/problems/merge-two-sorted-lists/
 func mergeTwoSortedListsRecursively(l1, l2 *ListNode) *ListNode { //nolint
 	if l1 == nil {
-		return l2
+		return mergeTwoSortedListsRecursively(l2,)
 	}
 	if l2 == nil {
 		return l1
