@@ -1,9 +1,5 @@
 package datastructure
 
-import (
-	"reflect"
-)
-
 type ListNode struct {
 	Val  int
 	Next *ListNode
@@ -15,7 +11,7 @@ func reverseListIteratively(head *ListNode) *ListNode {
 		return head
 	}
 
-	var prev,next *ListNode
+	var prev, next *ListNode
 	var curr = head
 
 	for curr != nil {
@@ -105,7 +101,7 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 // L21 https://leetcode.com/problems/merge-two-sorted-lists/
 func mergeTwoSortedListsRecursively(l1, l2 *ListNode) *ListNode { //nolint
 	if l1 == nil {
-		return mergeTwoSortedListsRecursively(l2,)
+		return l1
 	}
 	if l2 == nil {
 		return l1
@@ -217,49 +213,30 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	first := head
 	second := head
 
-	for n > 0 {
+	for n > 0 && second != nil {
 		second = second.Next
 		n--
 	}
 
 	if second == nil {
-		return head.Next
+		return first.Next
 	}
 
 	for second != nil && second.Next != nil {
 		first = first.Next
 		second = second.Next
 	}
-
 	first.Next = first.Next.Next
 
 	return head
 }
-
+// 1234 21 43 
+// 2134
+// 
 // L24 https://leetcode.com/problems/swap-nodes-in-pairs/
 func swapPairs2(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
-	}
-
-	var curr = head
-	var res *ListNode = curr.Next
-	var next *ListNode
-	for curr != nil && curr.Next != nil {
-		next = curr.Next.Next
-
-		curr.Next.Next = curr
-		if next == nil {
-			curr.Next = nil
-		} else {
-			if next.Next == nil {
-				curr.Next = next
-			} else {
-				curr.Next = next.Next
-			}
-		}
-
-		curr = next
 	}
 
 	return res
@@ -490,88 +467,88 @@ func detectCycle(head *ListNode) *ListNode {
 	return nil
 }
 
-func reorderList(head *ListNode)  {
-    if head == nil || head.Next == nil {
-        return
-    }
-    
-    var slow = head
-    var fast = head
-    
-    for fast != nil && fast.Next != nil {
-        slow = slow.Next
-        fast = fast.Next.Next
-    }
+func reorderList(head *ListNode) {
+	if head == nil || head.Next == nil {
+		return
+	}
 
-    a := reverseListIteratively(slow)
-    
-    curr := head
-    for a != nil && curr != nil && a.Next != nil && curr.Next != nil{
-        temp := curr.Next
-        curr.Next = a
-        
-        temp2 := a.Next
-        a.Next = temp
-        
-        curr = temp
-        a = temp2
-    }
+	var slow = head
+	var fast = head
+
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+
+	a := reverseListIteratively(slow)
+
+	curr := head
+	for a != nil && curr != nil && a.Next != nil && curr.Next != nil {
+		temp := curr.Next
+		curr.Next = a
+
+		temp2 := a.Next
+		a.Next = temp
+
+		curr = temp
+		a = temp2
+	}
 }
 
-func reorderList3(head *ListNode)  {
-    if head == nil || head.Next == nil {
-        return
-    }
-    
-    var slow = head
-    var fast = head
-    var prevSlow *ListNode
+func reorderList3(head *ListNode) {
+	if head == nil || head.Next == nil {
+		return
+	}
 
-    for fast != nil && fast.Next != nil {
-        prevSlow = slow
-        slow = slow.Next
-        fast = fast.Next.Next
-    }
+	var slow = head
+	var fast = head
+	var prevSlow *ListNode
 
-    prevSlow.Next = nil
-    r := reverseListIteratively(slow)
-    
-    mergeList(head,r)
+	for fast != nil && fast.Next != nil {
+		prevSlow = slow
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
 
-    return
+	prevSlow.Next = nil
+	r := reverseListIteratively(slow)
+
+	mergeList(head, r)
+
+	return
 }
 
 func mergeList(l1, l2 *ListNode) {
-    var l1Tmp, l2Tmp *ListNode
-    for l1 != nil && l2 != nil {
-        l1Tmp = l1.Next
-        l2Tmp = l2.Next
+	var l1Tmp, l2Tmp *ListNode
+	for l1 != nil && l2 != nil {
+		l1Tmp = l1.Next
+		l2Tmp = l2.Next
 
-        l1.Next = l2
-        l1 = l1Tmp
+		l1.Next = l2
+		l1 = l1Tmp
 
-        l2.Next = l1
-        l2 = l2Tmp
-    }
+		l2.Next = l1
+		l2 = l2Tmp
+	}
 }
 
 func reorderList2(head *ListNode) {
-    if head == nil {
-        return
-    }
-    mid := middleNode(head)
-    l1 := head
-    l2 := mid.Next
-    mid.Next = nil
-    l2 = reverseListIteratively(l2)
-    mergeList(l1, l2)
+	if head == nil {
+		return
+	}
+	mid := middleNode(head)
+	l1 := head
+	l2 := mid.Next
+	mid.Next = nil
+	l2 = reverseListIteratively(l2)
+	mergeList(l1, l2)
 }
 
 func middleNode(head *ListNode) *ListNode {
-    slow, fast := head, head
-    for fast.Next != nil && fast.Next.Next != nil {
-        slow = slow.Next
-        fast = fast.Next.Next
-    }
-    return slow
+	slow, fast := head, head
+	for fast.Next != nil && fast.Next.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+	return slow
 }
