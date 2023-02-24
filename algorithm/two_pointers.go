@@ -85,27 +85,6 @@ func twoSum(nums []int, target int) []int {
 }
 
 
-func threeSum(nums []int) [][]int {
-    var targets = make([]int,len(nums))
-
-	for i := range nums {
-		targets[i] = 0-nums[i]
-	}
-
-	var res [][]int
-
-	for i := range nums {
-		arr := append(nums[:i],nums[i+1:]...)
-		temp := twoSum(arr,targets[i])
-		if len(temp) > 0 {
-            temp = append(temp,nums[i])
-			res = append(res, temp)
-		}
-	}
-
-	return res
-}
-
 func testappend(){
 
 	var a = []int{-2,-4,4,3,1}

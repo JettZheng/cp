@@ -39,7 +39,7 @@ func reverseListRecursively(head *ListNode) *ListNode {
 }
 
 // L25 https://leetcode.com/problems/reverse-nodes-in-k-group/
-func reverseKGroup(head *ListNode, k int) *ListNode {
+func reverseKGroup2(head *ListNode, k int) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
 	}
@@ -71,6 +71,35 @@ func reverseKGroup(head *ListNode, k int) *ListNode {
 	}
 
 	l.Next = r
+
+	return res
+}
+
+func reverseKGroup(head *ListNode, k int) *ListNode { // 1234 21 43
+	if head == nil || head.Next == nil {
+		return head
+	}
+	var count = k
+
+	var moveNode = head
+	var prev *ListNode
+
+	for count > 0 && moveNode != nil {
+		prev = moveNode
+		moveNode = moveNode.Next
+		count--
+	}
+
+	prev.Next = nil
+
+	l := reverseListIteratively(head)
+
+	var res = l
+	for l != nil && l.Next != nil {
+		l = l.Next
+	}
+
+	l.Next = reverseKGroup(moveNode, k)
 
 	return res
 }
@@ -230,16 +259,17 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 
 	return head
 }
-// 1234 21 43 
+
+// 1234 21 43
 // 2134
-// 
+//
 // L24 https://leetcode.com/problems/swap-nodes-in-pairs/
 func swapPairs2(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
 	}
 
-	return res
+	return head
 }
 
 func swapPairsRecursively(head *ListNode) *ListNode {

@@ -5,9 +5,9 @@ package algorithm
  2.binary search should use sorted array
  3.binary search should use two pointers to check if l < r
 */
-func binarySearchIteratively(nums []int, target int) int {
+func binarySearchI(nums []int, target int) int {
 	l := 0
-	r := len(nums)-1
+	r := len(nums) - 1
 	var m int
 
 	for l <= r {
@@ -26,11 +26,36 @@ func binarySearchIteratively(nums []int, target int) int {
 	return -1
 }
 
+func binarySearchII(nums []int, target int) int {
+	l := 0
+	r := len(nums) - 1
+	var m int
+
+	for l < r {
+		m = l + (r-l)/2
+		if nums[m] > target {
+			r = m
+		}
+		if nums[m] < target {
+			l = m + 1
+		}
+		if nums[m] == target {
+			return m
+		}
+	}
+
+	if nums[l] == target {
+		return l
+	}
+
+	return -1
+}
+
 func binarySearchLower(nums []int, target int) int {
 	l := 0
 	r := len(nums) - 1
 	var m int
-	var i  = -1
+	var i = -1
 	for l <= r {
 		m = l + (r-l)/2
 		if nums[m] > target {
@@ -52,7 +77,7 @@ func binarySearchUpper(nums []int, target int) int {
 	l := 0
 	r := len(nums) - 1
 	var m int
-	var i  = -1
+	var i = -1
 	for l <= r {
 		m = l + (r-l)/2
 		if nums[m] > target {
@@ -61,7 +86,7 @@ func binarySearchUpper(nums []int, target int) int {
 		if nums[m] < target {
 			l = m + 1
 		}
-		if nums[m] == target  {
+		if nums[m] == target {
 			i = m
 			l = m + 1
 		}
@@ -72,12 +97,12 @@ func binarySearchUpper(nums []int, target int) int {
 
 func search(nums []int, target int) int {
 	l := 0
-	r := len(nums)-1
+	r := len(nums) - 1
 
-    return binarySearchRecursively(nums,target,l,r)
+	return binarySearchRecursively(nums, target, l, r)
 }
 
-func binarySearchRecursively(nums []int, target int,l,r int) int {
+func binarySearchRecursively(nums []int, target int, l, r int) int {
 	m := l + (r-l)/2
 
 	if l > r {
@@ -89,33 +114,33 @@ func binarySearchRecursively(nums []int, target int,l,r int) int {
 	}
 
 	if nums[m] > target {
-		return binarySearchRecursively(nums,target,l,m-1)
+		return binarySearchRecursively(nums, target, l, m-1)
 	}
 
 	if nums[m] < target {
-		return binarySearchRecursively(nums,target,m+1,r)
+		return binarySearchRecursively(nums, target, m+1, r)
 	}
 
 	return -1
 }
 
-func minArray(numbers []int) int {  
-    l := 0
-    r := len(numbers) -1
+func minArray(numbers []int) int {
+	l := 0
+	r := len(numbers) - 1
 
-    for l < r {
-        m := l + (r-l) /2
+	for l < r {
+		m := l + (r-l)/2
 
-        if numbers[m] < numbers[r] {
-            r = m
-        } else if numbers[m] > numbers[r] {
-            l = m + 1
-        } else {
-            r -- 
-        }
-    }
+		if numbers[m] < numbers[r] {
+			r = m
+		} else if numbers[m] > numbers[r] {
+			l = m + 1
+		} else {
+			r--
+		}
+	}
 
-    return numbers[l]
+	return numbers[l]
 }
 
 // 4566712 6
@@ -129,7 +154,7 @@ func hsearch(arr []int, target int) int {
 			return l
 		}
 
-		m := l + (r - l)/2
+		m := l + (r-l)/2
 
 		if arr[m] == target {
 			r = m

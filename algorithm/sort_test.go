@@ -15,9 +15,9 @@ func Test_quickSort(t *testing.T) {
 		{
 			name: "",
 			args: args{
-				nums: &[]int{8,4,5,7,6,5,6},
+				nums: &[]int{5,6,1,2,3,4},
 				l:    0,
-				r:    6,
+				r:    5,
 			},
 		},
 	}

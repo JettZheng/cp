@@ -14,14 +14,14 @@ func partition(nums []int,l,r int) int {
 	pivotValue := nums[r]
 
 	var p = l
-	for i := l; i < r; i++ {
-		if nums[i] < pivotValue{
+	for i := l; i <= r; i++ {
+		if nums[i] >= pivotValue{
 			nums[i],nums[p] = nums[p],nums[i]
 			p++
 		}
 	}
 
-	nums[p],nums[r] = nums[r],nums[p]
+	//nums[p],nums[r] = nums[r],nums[p]
 
 	return p
 }
